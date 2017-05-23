@@ -8,8 +8,9 @@ namespace ConsoleApp.Animal.Abstract
         public int HP { get; protected set; }
         public State State { get; set; }
 
-        public Animal()
+        public Animal(string Name)
         {
+            this.Name = Name;
             State = new AnimalState.Concrete.Well_Fed();
         }
 

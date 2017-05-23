@@ -11,13 +11,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Animal.Concrete.Lion animal = new Animal.Concrete.Lion();
+            Animal.Abstract.Animal animal = new Animal.Concrete.Elephant("Вася");
             animal.Voice();
-            
-            if(animal.State is AnimalState.Concrete.Well_Fed)
-            {
-                Console.WriteLine("ITS WORK");
-            }
+            Console.WriteLine(animal.Name);
+            Console.WriteLine(animal.HP);
         }
     }
 }
