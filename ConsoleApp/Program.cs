@@ -8,12 +8,28 @@ namespace ConsoleApp
 {
     class Program
     {
+        static Random rand = new Random();
         static void Main(string[] args)
         {
-            AnimalAbstract.Animal animal = new AnimalConcrete.Elephant("Вася");
-            animal.Voice();
-            Console.WriteLine(animal.Name);
-            Console.WriteLine(animal.HP);
+            /*
+            Zoo.Zoo zoo = new Zoo.Zoo();
+            zoo.AddAnimal("Vasya", "Lion");
+            zoo.AddAnimal("Alex", "Tiger");
+            zoo.AddAnimal("Nik", "Lion");
+
+
+            while (!zoo.isAllDead())
+            {
+               
+            }
+
+            Console.WriteLine("All dead");
+            Console.ReadKey();*/
+
+            Menu menu = new Menu();
+            menu.WaitUserCommand();
+
+
         }
     }
 }

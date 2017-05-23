@@ -6,7 +6,7 @@ namespace StateConcrete
     {
         public override void ChangeState(AnimalAbstract.Animal animal)
         {
-            animal.State = null;
+            // Do nothing because it's final state
         }
     }
 }

@@ -55,6 +55,10 @@
     <Compile Include="Animal\Concrete\Tiger.cs" />
     <Compile Include="Animal\Concrete\Wolf.cs" />
     <Compile Include="Animal\IVoice.cs" />
+    <Compile Include="Exceptions\AnimalAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\AnimalInvalidTypeException.cs" />
+    <Compile Include="Exceptions\AnimalNotFoundException.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zoo\IZoo.cs" />

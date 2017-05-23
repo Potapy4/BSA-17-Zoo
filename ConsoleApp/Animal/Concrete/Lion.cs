@@ -7,8 +7,8 @@ namespace AnimalConcrete
     {
         public Lion(string Name) : base(Name)
         {
-            MaxHP = 5;
-            this.HP = MaxHP;
+            maxHP = 5;
+            this.HP = maxHP;
         }
 
         public override void Voice()
