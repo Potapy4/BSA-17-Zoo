@@ -26,7 +26,7 @@ namespace ConsoleApp
             Console.WriteLine("All dead");
             Console.ReadKey();*/
 
-            Menu menu = new Menu();
+            Menu menu = Menu.GetInstance();
             menu.WaitUserCommand();
 
 

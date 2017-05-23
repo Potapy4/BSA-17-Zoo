@@ -8,11 +8,22 @@ namespace ConsoleApp
 {
     class Menu
     {
-        Zoo.Zoo zoo;
+        private static Menu _instance;
+        private Zoo.Zoo zoo;
 
-        public Menu()
+        protected Menu()
         {
             zoo = new Zoo.Zoo();
+        }
+
+        public static Menu GetInstance() // Singleton
+        {
+            if(_instance == null)
+            {
+                _instance = new Menu();
+            }
+
+            return _instance;
         }
 
         public void WaitUserCommand()
@@ -28,7 +39,7 @@ namespace ConsoleApp
                 }
             }
 
-            LogColoredMessage("All animals in zoo is died.", true);           
+            LogColoredMessage("All animals in the zoo are dead.", true);           
         }
 
         private void ParseCommand(string command)
