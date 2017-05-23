@@ -1,13 +1,13 @@
 ﻿using System;
-using ConsoleApp.Animal.Abstract;
 
 namespace ConsoleApp.Animal.Concrete
 {
-    class Elephant : Proboscidea
+    class Elephant : Abstract.Animal
     {
         public Elephant(string Name) : base(Name)
         {
-            this.HP = 7;
+            MaxHP = 7;
+            this.HP = MaxHP;
         }
 
         public override void Voice()

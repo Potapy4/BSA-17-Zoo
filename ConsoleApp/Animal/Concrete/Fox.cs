@@ -1,13 +1,13 @@
 ﻿using System;
-using ConsoleApp.Animal.Abstract;
 
 namespace ConsoleApp.Animal.Concrete
 {
-    class Fox : Canidae
+    class Fox : Abstract.Animal
     {
         public Fox(string Name) : base(Name)
         {
-            this.HP = 3;
+            MaxHP = 3;
+            this.HP = MaxHP;
         }
 
         public override void Voice()

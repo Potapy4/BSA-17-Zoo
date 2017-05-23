@@ -1,13 +1,13 @@
 ﻿using System;
-using ConsoleApp.Animal.Abstract;
 
 namespace ConsoleApp.Animal.Concrete
 {
-    class Lion : Felidae
+    class Lion : Abstract.Animal
     {
         public Lion(string Name) : base(Name)
         {
-            this.HP = 5;
+            MaxHP = 5;
+            this.HP = MaxHP;
         }
 
         public override void Voice()

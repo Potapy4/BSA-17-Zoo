@@ -1,13 +1,13 @@
 ﻿using System;
-using ConsoleApp.Animal.Abstract;
 
 namespace ConsoleApp.Animal.Concrete
 {
-    class Bear : Ursidae
+    class Bear : Abstract.Animal
     {
         public Bear(string Name) : base(Name)
         {
-            this.HP = 6;
+            MaxHP = 6;
+            this.HP = MaxHP;
         }
 
         public override void Voice()

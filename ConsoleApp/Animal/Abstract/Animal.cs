@@ -4,8 +4,10 @@ namespace ConsoleApp.Animal.Abstract
 {
     abstract class Animal: IVoice
     {
+        protected int MaxHP;
+
         public string Name { get; protected set; }
-        public int HP { get; protected set; }
+        public int HP { get; set; }
         public State State { get; set; }
 
         public Animal(string Name)
