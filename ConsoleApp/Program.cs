@@ -10,7 +10,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Animal.Abstract.Animal animal = new Animal.Concrete.Elephant("Вася");
+            AnimalAbstract.Animal animal = new AnimalConcrete.Elephant("Вася");
             animal.Voice();
             Console.WriteLine(animal.Name);
             Console.WriteLine(animal.HP);

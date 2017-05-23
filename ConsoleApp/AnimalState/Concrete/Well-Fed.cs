@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using StateAbsract;
 
-namespace ConsoleApp.AnimalState.Concrete
+namespace StateConcrete
 {
-    class Well_Fed : Abstract.State
+    class Well_Fed : State
     {
-        public override void ChangeState(Animal.Abstract.Animal animal)
+        public override void ChangeState(AnimalAbstract.Animal animal)
         {
             animal.State = new Hungry();
         }

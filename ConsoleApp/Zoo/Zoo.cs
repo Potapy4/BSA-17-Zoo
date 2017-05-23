@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleApp.Animal.Abstract;
 
 namespace ConsoleApp.Zoo
 {
     class Zoo: IZoo
     {
-        private List<Animal.Abstract.Animal> animals;
+        private List<AnimalAbstract.Animal> animals;
 
         /* TODO
         private int FindAnimalByName(string name)
@@ -18,10 +17,10 @@ namespace ConsoleApp.Zoo
         }
         */
 
-        public void AddAnimal(string name, Animal.Abstract.Animal type)
+        public void AddAnimal(string name, AnimalAbstract.Animal type)
         {
             throw new NotImplementedException();
-        }
+        }        
 
         public void FeedAnimal(string name)
         {

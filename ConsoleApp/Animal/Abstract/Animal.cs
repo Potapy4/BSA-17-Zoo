@@ -1,6 +1,8 @@
-﻿using ConsoleApp.AnimalState.Abstract;
+﻿using ConsoleApp.Animal;
+using StateAbsract;
+using StateConcrete;
 
-namespace ConsoleApp.Animal.Abstract
+namespace AnimalAbstract
 {
     abstract class Animal: IVoice
     {
@@ -13,7 +15,7 @@ namespace ConsoleApp.Animal.Abstract
         public Animal(string Name)
         {
             this.Name = Name;
-            State = new AnimalState.Concrete.Well_Fed();
+            State = new Well_Fed();
         }
 
         public abstract void Voice();

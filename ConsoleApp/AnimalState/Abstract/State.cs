@@ -1,7 +1,7 @@
-﻿namespace ConsoleApp.AnimalState.Abstract
+﻿namespace StateAbsract
 {
     abstract class State
     {
-        public abstract void ChangeState(Animal.Abstract.Animal animal);
+        public abstract void ChangeState(AnimalAbstract.Animal animal);
     }
 }

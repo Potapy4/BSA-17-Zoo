@@ -1,8 +1,9 @@
 ﻿using System;
+using AnimalAbstract;
 
-namespace ConsoleApp.Animal.Concrete
+namespace AnimalConcrete
 {
-    class Fox : Abstract.Animal
+    class Fox : Animal
     {
         public Fox(string Name) : base(Name)
         {
