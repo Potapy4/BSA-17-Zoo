@@ -1,72 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
     class Menu
     {
-        private static Menu _instance;
+        private static readonly Lazy<Menu> lazy = new Lazy<Menu>(() => new Menu());
         private Zoo.Zoo zoo;
 
-        protected Menu()
+        public static Menu Instance { get { return lazy.Value; } }
+
+        private Menu()
         {
             zoo = new Zoo.Zoo();
         }
 
-        public static Menu GetInstance() // Singleton
-        {
-            if(_instance == null)
-            {
-                _instance = new Menu();
-            }
-
-            return _instance;
-        }
-
         public void WaitUserCommand()
         {
-            while (!zoo.isAllDead)
+            while (!zoo.watcher.isAllDead)
             {
                 Console.WriteLine("Enter a command: ");
                 string command = Console.ReadLine();
 
-                if (!zoo.isAllDead) // Additional check when we type smth
+                if (!zoo.watcher.isAllDead) // Additional check when we type smth
                 {
                     ParseCommand(command);
                 }
             }
 
-            LogColoredMessage("All animals in the zoo are dead.", true);           
+            LogColoredMessage("All animals in the zoo are dead.", true);
         }
 
         private void ParseCommand(string command)
         {
-            string[] args = command.Split(' ');           
+            string[] args = command.Split(' ');
 
-            switch (args[0])
+            switch (args[0].ToLower())
             {
-                case "HELP":
                 case "help":
                     HelpCommand();
                     break;
                 case "add":
-                case "ADD":
                     Add(args);
                     break;
-                case "FEED":
                 case "feed":
                     Feed(args);
                     break;
-                case "HEAL":
                 case "heal":
                     Heal(args);
                     break;
-                case "REMOVE":
                 case "remove":
                     Remove(args);
+                    break;
+                case "list":
+                    List();
+                    break;
+                case "info":
+                    Info(args);
                     break;
                 default:
                     LogColoredMessage("Command not found!", true);
@@ -76,14 +65,39 @@ namespace ConsoleApp
 
         private void HelpCommand()
         {
-            Console.WriteLine("Usage: <command> <params>");
-            Console.WriteLine("add/ADD AnimalName AnimalType: add myLion LION");
-            Console.WriteLine("*Animal types: LION | TIGER | BEAR | WOLF | FOX | ELEPHANT");
-            Console.WriteLine("feed/FEED AnimalName: feed myLion");
-            Console.WriteLine("heal/HEAL AnimalName: heal myLion");
-            Console.WriteLine("remove/REMOVE AnimalName: remove myLion");
-            Console.WriteLine("P.S - commands case sensitivity");
+            Console.Write("\nUsage:");
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" <command>");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" <params>\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Commands:");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("add <Animal Name> <Animal Type>");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("feed <Animal Name>");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("heal <Animal Name>");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("remove <Animal Name>");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("info <Animal Name>");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("list\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("*Animal types: lion | tiger | fox | wolf | elephant | bear\n");
+
+            Console.ResetColor();
         }
 
         private void LogColoredMessage(string msg, bool isError = false)
@@ -95,7 +109,7 @@ namespace ConsoleApp
 
         private void Add(string[] args)
         {
-            if(args.Length != 3)
+            if (args.Length != 3 || args[1] == "")
             {
                 LogColoredMessage("Invalid args for command. Use help for details.", true);
                 return;
@@ -106,7 +120,7 @@ namespace ConsoleApp
                 zoo.AddAnimal(args[1], args[2]);
                 LogColoredMessage("Animal was successfully added.");
             }
-            catch(Exceptions.AnimalAlreadyExistsException)
+            catch (Exceptions.AnimalAlreadyExistsException)
             {
                 LogColoredMessage("Name must be unique! Already have animal with same name.", true);
             }
@@ -182,6 +196,48 @@ namespace ConsoleApp
                 {
                     LogColoredMessage("Animal was successfully removed.");
                 }
+            }
+            catch (Exceptions.AnimalNotFoundException)
+            {
+                LogColoredMessage("Animal not found.", true);
+            }
+            catch (Exception ex)
+            {
+                LogColoredMessage("Ooops, something was wrong: " + ex.Message, true);
+            }
+        }
+
+        private void List()
+        {
+            var ls = zoo.GetAnimals();
+
+            if (ls.Count == 0)
+            {
+                LogColoredMessage("No animals in zoo.", true);
+                return;
+            }
+
+            Console.WriteLine("Name: \t HP: \t State:");
+            foreach (var animal in ls)
+            {
+                Console.WriteLine("{0} \t {1} \t {2}", animal.Name, animal.HP, animal.State);
+            }
+        }
+
+        private void Info(string[] args)
+        {
+            if (args.Length != 2 || string.IsNullOrWhiteSpace(args[1]))
+            {
+                LogColoredMessage("Invalid args for command. Use help for details.", true);
+                return;
+            }
+
+            try
+            {
+                var animal = zoo.GetAnimalByName(args[1]);
+
+                LogColoredMessage("Animal info:");
+                Console.WriteLine("Name: {0} | HP: {1} | State: {2}", animal.Name, animal.HP, animal.State);
             }
             catch (Exceptions.AnimalNotFoundException)
             {

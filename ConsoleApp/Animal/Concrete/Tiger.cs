@@ -10,10 +10,5 @@ namespace AnimalConcrete
             maxHP = 4;
             this.HP = maxHP;
         }
-
-        public override void Voice()
-        {
-            Console.WriteLine("Moar. Moar. Moar!");
-        }
     }
 }
