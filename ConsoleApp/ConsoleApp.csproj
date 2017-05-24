@@ -42,8 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimalState\Abstract\State.cs" />
+    <Compile Include="AnimalState\Concrete\Dead.cs" />
+    <Compile Include="AnimalState\Concrete\Hungry.cs" />
+    <Compile Include="AnimalState\Concrete\Sick.cs" />
+    <Compile Include="AnimalState\Concrete\Well-Fed.cs" />
+    <Compile Include="Animal\Abstract\Animal.cs" />
+    <Compile Include="Animal\Concrete\Bear.cs" />
+    <Compile Include="Animal\Concrete\Elephant.cs" />
+    <Compile Include="Animal\Concrete\Fox.cs" />
+    <Compile Include="Animal\Concrete\Lion.cs" />
+    <Compile Include="Animal\Concrete\Tiger.cs" />
+    <Compile Include="Animal\Concrete\Wolf.cs" />
+    <Compile Include="Animal\IVoice.cs" />
+    <Compile Include="Exceptions\AnimalAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\AnimalInvalidTypeException.cs" />
+    <Compile Include="Exceptions\AnimalNotFoundException.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zoo\IZoo.cs" />
+    <Compile Include="Zoo\Zoo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
