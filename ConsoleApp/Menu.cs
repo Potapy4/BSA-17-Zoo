@@ -4,7 +4,7 @@ namespace ConsoleApp
 {
     class Menu
     {
-        private static readonly Lazy<Menu> lazy = new Lazy<Menu>(() => new Menu());        
+        private static readonly Lazy<Menu> lazy = new Lazy<Menu>(() => new Menu());
         private Zoo.Zoo zoo;
 
         public static Menu Instance { get { return lazy.Value; } }
@@ -12,7 +12,7 @@ namespace ConsoleApp
         private Menu()
         {
             zoo = new Zoo.Zoo();
-        }        
+        }
 
         public void WaitUserCommand()
         {
@@ -32,22 +32,22 @@ namespace ConsoleApp
 
         private void ParseCommand(string command)
         {
-            string[] args = command.Split(' ');           
+            string[] args = command.Split(' ');
 
             switch (args[0].ToLower())
-            {                
+            {
                 case "help":
                     HelpCommand();
                     break;
-                case "add":              
+                case "add":
                     Add(args);
-                    break;              
+                    break;
                 case "feed":
                     Feed(args);
-                    break;               
+                    break;
                 case "heal":
                     Heal(args);
-                    break;                
+                    break;
                 case "remove":
                     Remove(args);
                     break;
@@ -55,7 +55,7 @@ namespace ConsoleApp
                     List();
                     break;
                 case "info":
-                    Info();
+                    Info(args);
                     break;
                 default:
                     LogColoredMessage("Command not found!", true);
@@ -77,7 +77,7 @@ namespace ConsoleApp
             Console.WriteLine("Commands:");
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("add <Animal Name> <Animal Type>");            
+            Console.WriteLine("add <Animal Name> <Animal Type>");
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("feed <Animal Name>");
@@ -109,18 +109,18 @@ namespace ConsoleApp
 
         private void Add(string[] args)
         {
-            if(args.Length != 3 || args[1] == "")
+            if (args.Length != 3 || args[1] == "")
             {
                 LogColoredMessage("Invalid args for command. Use help for details.", true);
                 return;
-            }            
+            }
 
             try
             {
                 zoo.AddAnimal(args[1], args[2]);
                 LogColoredMessage("Animal was successfully added.");
             }
-            catch(Exceptions.AnimalAlreadyExistsException)
+            catch (Exceptions.AnimalAlreadyExistsException)
             {
                 LogColoredMessage("Name must be unique! Already have animal with same name.", true);
             }
@@ -219,14 +219,34 @@ namespace ConsoleApp
 
             Console.WriteLine("Name: \t HP: \t State:");
             foreach (var animal in ls)
-            {                
+            {
                 Console.WriteLine("{0} \t {1} \t {2}", animal.Name, animal.HP, animal.State);
             }
         }
 
-        private void Info()
+        private void Info(string[] args)
         {
-            throw new NotImplementedException();
+            if (args.Length != 2 || string.IsNullOrWhiteSpace(args[1]))
+            {
+                LogColoredMessage("Invalid args for command. Use help for details.", true);
+                return;
+            }
+
+            try
+            {
+                var animal = zoo.GetAnimalByName(args[1]);
+
+                LogColoredMessage("Animal info:");
+                Console.WriteLine("Name: {0} | HP: {1} | State: {2}", animal.Name, animal.HP, animal.State);
+            }
+            catch (Exceptions.AnimalNotFoundException)
+            {
+                LogColoredMessage("Animal not found.", true);
+            }
+            catch (Exception ex)
+            {
+                LogColoredMessage("Ooops, something was wrong: " + ex.Message, true);
+            }
         }
     }
 }

@@ -91,5 +91,19 @@ namespace ConsoleApp.Zoo
         {
             return animals;
         }
+
+        public AnimalAbstract.Animal GetAnimalByName(string name)
+        {
+            int index = FindAnimalByName(name);
+
+            if (index >= 0)
+            {
+                return animals[index];
+            }
+            else
+            {
+                throw new AnimalNotFoundException();
+            }
+        }
     }
 }
