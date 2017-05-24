@@ -126,7 +126,7 @@ namespace ConsoleApp
             }
             catch (Exceptions.AnimalInvalidTypeException)
             {
-                LogColoredMessage("Invalid type of animal! User help command for details.", true);
+                LogColoredMessage("Invalid type of animal! Use help command for details.", true);
             }
             catch (Exception ex)
             {
