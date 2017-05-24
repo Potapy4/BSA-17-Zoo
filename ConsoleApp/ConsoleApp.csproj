@@ -42,12 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimalState\Abstract\State.cs" />
-    <Compile Include="AnimalState\Concrete\Dead.cs" />
-    <Compile Include="AnimalState\Concrete\Hungry.cs" />
-    <Compile Include="AnimalState\Concrete\Sick.cs" />
-    <Compile Include="AnimalState\Concrete\Well-Fed.cs" />
+    <Compile Include="AnimalState\AnimalState.cs" />
     <Compile Include="Animal\Abstract\Animal.cs" />
+    <Compile Include="Animal\AnimalFabric.cs" />
     <Compile Include="Animal\Concrete\Bear.cs" />
     <Compile Include="Animal\Concrete\Elephant.cs" />
     <Compile Include="Animal\Concrete\Fox.cs" />

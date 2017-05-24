@@ -2,12 +2,13 @@
 using Exceptions;
 using System.Timers;
 using System;
+using AnimalStates;
 
 namespace ConsoleApp.Zoo
 {
     class Zoo : IZoo
     {
-        private List<AnimalAbstract.Animal> animals;
+        private List<AnimalAbstract.Animal> animals;        
         private static Random rand;
         private Timer timer;
 
@@ -38,7 +39,7 @@ namespace ConsoleApp.Zoo
 
         public void SomeOneAlive()
         {
-            if(animals.Count == 0) // No animals
+            if (animals.Count == 0) // No animals
             {
                 isAllDead = false;
                 return;
@@ -46,7 +47,7 @@ namespace ConsoleApp.Zoo
 
             for (int i = 0, count = animals.Count; i < count; i++)
             {
-                if (!(animals[i].State is StateConcrete.Dead)) // If someone not dead
+                if (animals[i].State != AnimalState.Dead) // If someone not dead
                 {
                     isAllDead = false;
                     return;
@@ -63,21 +64,14 @@ namespace ConsoleApp.Zoo
                 SomeOneAlive();
 
                 if (isAllDead)
-                {                   
-                    timer.Stop();                    
+                {
+                    timer.Stop();
                 }
 
                 int index = RandomIndexAnimal();
-                Console.WriteLine(string.Format("A: {0} | HP: {1} | ST: {2}",animals[index].Name, animals[index].HP, animals[index].State.ToString()));
+                Console.WriteLine(string.Format("A: {0} | HP: {1} | ST: {2}", animals[index].Name, animals[index].HP, animals[index].State.ToString()));
 
-                if (animals[index].State is StateConcrete.Sick && animals[index].HP > 0)
-                {
-                    --animals[index].HP;
-                }
-                else
-                {                    
-                    animals[index].UpdateState();
-                }
+                animals[index].UpdateState();
             }
         }
 
@@ -91,34 +85,13 @@ namespace ConsoleApp.Zoo
             }
             else
             {
-                switch (type)
+                try
                 {
-                    case "FOX":
-                    case "fox":
-                        animals.Add(new AnimalConcrete.Fox(name));
-                        break;
-                    case "WOLF":
-                    case "wolf":
-                        animals.Add(new AnimalConcrete.Wolf(name));
-                        break;
-                    case "BEAR":
-                    case "bear":
-                        animals.Add(new AnimalConcrete.Bear(name));
-                        break;
-                    case "ELEPHANT":
-                    case "elephant":
-                        animals.Add(new AnimalConcrete.Elephant(name));
-                        break;
-                    case "LION":
-                    case "lion":
-                        animals.Add(new AnimalConcrete.Lion(name));
-                        break;
-                    case "TIGER":
-                    case "tiger":
-                        animals.Add(new AnimalConcrete.Tiger(name));
-                        break;
-                    default:
-                        throw new AnimalInvalidTypeException();
+                    animals.Add(Animal.AnimalFabric.GetAnimal(name, type));
+                }
+                catch (AnimalInvalidTypeException ex)
+                {
+                    throw ex;
                 }
             }
         }
@@ -156,12 +129,12 @@ namespace ConsoleApp.Zoo
         {
             int index = FindAnimalByName(name);
 
-            if (index >= 0 && animals[index].State is StateConcrete.Dead)
+            if (index >= 0 && animals[index].State == AnimalState.Dead)
             {
                 animals.RemoveAt(index);
                 return true;
             }
-            else if(index == -1)
+            else if (index == -1)
             {
                 throw new AnimalNotFoundException();
             }

@@ -46,25 +46,20 @@ namespace ConsoleApp
         {
             string[] args = command.Split(' ');           
 
-            switch (args[0])
-            {
-                case "HELP":
+            switch (args[0].ToLower())
+            {                
                 case "help":
                     HelpCommand();
                     break;
-                case "add":
-                case "ADD":
+                case "add":              
                     Add(args);
-                    break;
-                case "FEED":
+                    break;              
                 case "feed":
                     Feed(args);
-                    break;
-                case "HEAL":
+                    break;               
                 case "heal":
                     Heal(args);
-                    break;
-                case "REMOVE":
+                    break;                
                 case "remove":
                     Remove(args);
                     break;
