@@ -3,7 +3,7 @@ using AnimalStates;
 
 namespace AnimalAbstract
 {
-    abstract class Animal: IVoice
+    abstract class Animal
     {
         protected int maxHP;
 
@@ -16,12 +16,10 @@ namespace AnimalAbstract
             this.Name = Name;
             State = AnimalState.Well_Fed;
         }
-
-        public abstract void Voice();
-
+        
         public void Eat()
         {
-            this.State = AnimalState.Well_Fed;
+            State = AnimalState.Well_Fed;           
         }
 
         public void Heal()
