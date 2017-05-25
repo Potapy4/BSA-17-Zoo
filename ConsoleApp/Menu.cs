@@ -6,28 +6,30 @@ namespace ConsoleApp
     {
         private static readonly Lazy<Menu> lazy = new Lazy<Menu>(() => new Menu());
         private Zoo.Zoo zoo;
+        private Zoo.ZooSelector selector;
 
         public static Menu Instance { get { return lazy.Value; } }
 
         private Menu()
         {
             zoo = new Zoo.Zoo();
+            selector = new Zoo.ZooSelector(zoo.GetAnimals());
         }
 
         public void WaitUserCommand()
         {
-            while (!zoo.watcher.isAllDead)
+            while (/*!zoo.watcher.isAllDead*/ true)
             {
                 Console.WriteLine("Enter a command: ");
                 string command = Console.ReadLine();
 
-                if (!zoo.watcher.isAllDead) // Additional check when we type smth
+                //if (!zoo.watcher.isAllDead) // Additional check when we type smth
                 {
                     ParseCommand(command);
                 }
             }
 
-            LogColoredMessage("All animals in the zoo are dead.", true);
+           // LogColoredMessage("All animals in the zoo are dead.", true);
         }
 
         private void ParseCommand(string command)
@@ -56,6 +58,9 @@ namespace ConsoleApp
                     break;
                 case "info":
                     Info(args);
+                    break;
+                case "linq":
+                    Linq(args);
                     break;
                 default:
                     LogColoredMessage("Command not found!", true);
@@ -254,6 +259,56 @@ namespace ConsoleApp
             catch (Exception ex)
             {
                 LogColoredMessage("Ooops, something was wrong: " + ex.Message, true);
+            }
+        }
+
+        private void Linq(string[] args)
+        {
+            /*
+            if (args.Length != 2 || string.IsNullOrWhiteSpace(args[1]))
+            {
+                LogColoredMessage("Invalid args for command. Use help for details.", true);
+                return;
+            }*/
+
+            int command = 0;
+            Int32.TryParse(args[1], out command);
+
+            switch (command)
+            {
+                case 1:
+                    selector.AnimalsByType(args[2]);
+                    break;
+                case 2:
+                    selector.AnimalsByState(args[2]);
+                    break;
+                case 3:
+                    selector.SickTigers();
+                    break;
+                case 4:
+                    selector.ElephantByName(args[2]);
+                    break;
+                case 5:
+                    selector.AllHungryAnimals();
+                    break;
+                case 6:
+                    selector.FirstWellFedByGroup();
+                    break;
+                case 7:
+                    selector.DeadAnimalsByType();
+                    break;
+                case 8:
+                    selector.BearsAndWolfsByHP();
+                    break;
+                case 9:
+                    selector.MaxAndMinHP();
+                    break;
+                case 10:
+                    selector.AvgHP();
+                    break;
+                default:
+                    LogColoredMessage("Command not found!", true);
+                    break;
             }
         }
     }
