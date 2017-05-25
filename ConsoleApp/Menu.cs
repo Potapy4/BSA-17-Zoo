@@ -151,6 +151,10 @@ namespace ConsoleApp
             {
                 LogColoredMessage("Animal not found.", true);
             }
+            catch (Exceptions.AnimalDeadException ex)
+            {
+                LogColoredMessage(ex.Message, true);
+            }
             catch (Exception ex)
             {
                 LogColoredMessage("Ooops, something was wrong: " + ex.Message, true);
@@ -174,6 +178,10 @@ namespace ConsoleApp
             catch (Exceptions.AnimalNotFoundException)
             {
                 LogColoredMessage("Animal not found.", true);
+            }
+            catch (Exceptions.AnimalDeadException ex)
+            {
+                LogColoredMessage(ex.Message, true);
             }
             catch (Exception ex)
             {
