@@ -8,8 +8,8 @@ namespace AnimalAbstract
         protected int maxHP;
 
         public string Name { get; protected set; }
-        public int HP { get; set; }        
-        public AnimalState State { get; set; }
+        public int HP { get; protected set; }        
+        public AnimalState State { get; private set; }
 
         public Animal(string Name)
         {
