@@ -21,7 +21,7 @@ namespace ConsoleApp.Zoo
 
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(RandomChangeState);
-            timer.Interval = 5000;
+            timer.Interval = 3000;
             timer.Start();
         }
 
@@ -62,7 +62,7 @@ namespace ConsoleApp.Zoo
                 }
 
                 int index = RandomIndexAnimal();
-                // Console.WriteLine(string.Format("A: {0} | HP: {1} | ST: {2}", animals[index].Name, animals[index].HP, animals[index].State.ToString())); // Debug info
+                //Console.WriteLine(string.Format("A: {0} | HP: {1} | ST: {2}", animals[index].Name, animals[index].HP, animals[index].State.ToString())); // Debug info
 
                 animals[index].UpdateState();
             }

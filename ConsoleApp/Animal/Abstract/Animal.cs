@@ -9,6 +9,7 @@ namespace AnimalAbstract
 
         public string Name { get; protected set; }
         public int HP { get; protected set; }        
+        public int MaxHP { get { return maxHP; } }
         public AnimalState State { get; private set; }
 
         public Animal(string Name)

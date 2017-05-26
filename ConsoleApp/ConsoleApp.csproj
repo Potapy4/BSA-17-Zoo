@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zoo\IZoo.cs" />
     <Compile Include="Zoo\Zoo.cs" />
+    <Compile Include="Zoo\ZooSelector.cs" />
     <Compile Include="Zoo\ZooWatcher.cs" />
   </ItemGroup>
   <ItemGroup>
