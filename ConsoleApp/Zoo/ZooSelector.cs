@@ -146,6 +146,6 @@ namespace ConsoleApp.Zoo
         public void AvgHP()
         {
             Console.WriteLine("Avg HP: {0}", animals.Average(x => x.HP));
-        } // WORK
+        }
     }
 }
