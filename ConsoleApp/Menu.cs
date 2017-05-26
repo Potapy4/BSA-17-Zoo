@@ -18,18 +18,18 @@ namespace ConsoleApp
 
         public void WaitUserCommand()
         {
-            while (/*!zoo.watcher.isAllDead*/ true)
+            while (!zoo.watcher.isAllDead)
             {
                 Console.WriteLine("Enter a command: ");
                 string command = Console.ReadLine();
 
-                //if (!zoo.watcher.isAllDead) // Additional check when we type smth
+                if (!zoo.watcher.isAllDead) // Additional check when we type smth
                 {
                     ParseCommand(command);
                 }
             }
 
-           // LogColoredMessage("All animals in the zoo are dead.", true);
+            LogColoredMessage("All animals in the zoo are dead.", true);
         }
 
         private void ParseCommand(string command)
@@ -264,13 +264,6 @@ namespace ConsoleApp
 
         private void Linq(string[] args)
         {
-            /*
-            if (args.Length != 2 || string.IsNullOrWhiteSpace(args[1]))
-            {
-                LogColoredMessage("Invalid args for command. Use help for details.", true);
-                return;
-            }*/
-
             int command = 0;
             Int32.TryParse(args[1], out command);
 
@@ -292,7 +285,7 @@ namespace ConsoleApp
                     selector.AllHungryAnimals();
                     break;
                 case 6:
-                    selector.FirstWellFedByGroup();
+                    selector.FirstHealthyByGroup();
                     break;
                 case 7:
                     selector.DeadAnimalsByType();

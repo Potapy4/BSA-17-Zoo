@@ -112,7 +112,7 @@ namespace ConsoleApp.Zoo
             animals.GroupBy(x => x.GetType().Name).Select(x => new
             {
                 Group = x.Key,
-                Count = x.Count()
+                Count = x.Where(y=>y.State == AnimalStates.AnimalState.Dead).Count()
             }).ToList().ForEach(x => Console.WriteLine("Group: {0} | Count: {1}", x.Group, x.Count));
         } // WORK
 
@@ -126,12 +126,19 @@ namespace ConsoleApp.Zoo
 
         public void MaxAndMinHP()
         {
-
+            /*
             var res = animals.Select(x => new
             {
                 Min = animals.First(y => y.HP == animals.Min(z => z.HP)),
                 Max = animals.First(y => y.HP == animals.Max(z => z.HP))
-            }).First();//.ForEach(x => Console.WriteLine("Min HP: {0} | HP: {1} || Max HP: {2} | HP: {3}", x.Min.Name, x.Min.HP, x.Max.Name, x.Max.HP));
+            }).First();*/ // It's work but I think not good solution
+
+            var sorted = animals.OrderBy(x => x.HP).ToList();
+            var res = new
+            {
+                Min = sorted.First(),
+                Max = sorted.Last()
+            };
 
             Console.WriteLine("Min HP: {0} | HP: {1} || Max HP: {2} | HP: {3}", res.Min.Name, res.Min.HP, res.Max.Name, res.Max.HP);
         } // WORK
@@ -140,6 +147,5 @@ namespace ConsoleApp.Zoo
         {
             Console.WriteLine("Avg HP: {0}", animals.Average(x => x.HP));
         } // WORK
-
     }
 }
