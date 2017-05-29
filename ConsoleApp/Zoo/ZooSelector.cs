@@ -116,7 +116,7 @@ namespace ConsoleApp.Zoo
 
         public void BearsAndWolfsByHP()
         {
-            animals.Where(x => (x.GetType() == typeof(AnimalConcrete.Bear) || x.GetType() == typeof(AnimalConcrete.Wolf) && x.HP > 3)).ToList().ForEach(x => FormattedShow(x));
+            animals.Where(x => (x.GetType() == typeof(AnimalConcrete.Bear) || x.GetType() == typeof(AnimalConcrete.Wolf)) && x.HP > 3).ToList().ForEach(x => FormattedShow(x));
         }
 
         public void MaxAndMinHP()
