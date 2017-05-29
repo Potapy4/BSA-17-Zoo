@@ -49,7 +49,7 @@ namespace ConsoleApp.Zoo
             formatted = char.ToUpper(formatted[0]) + formatted.Substring(1);
 
             animals.Where(x => x.GetType().Name == formatted).ToList().ForEach(x => FormattedShow(x));
-        } 
+        }
 
         public void AnimalsByState(string state)
         {
@@ -65,12 +65,12 @@ namespace ConsoleApp.Zoo
             }
 
             animals.Where(x => x.State == _state).ToList().ForEach(x => FormattedShow(x));
-        } 
+        }
 
         public void SickTigers()
         {
             animals.OfType<AnimalConcrete.Tiger>().ToList().Where(x => x.State == AnimalStates.AnimalState.Sick).ToList().ForEach(x => FormattedShow(x));
-        } 
+        }
 
         public void ElephantByName(string name)
         {
@@ -85,12 +85,12 @@ namespace ConsoleApp.Zoo
             }
 
             FormattedShow(animal);
-        } 
+        }
 
         public void AllHungryAnimals()
         {
             animals.Where(x => x.State == AnimalStates.AnimalState.Hungry).ToList().ForEach(x => Console.WriteLine("The {0} is hungry!", x.Name));
-        } 
+        }
 
         public void FirstHealthyByGroup()
         {
@@ -103,24 +103,21 @@ namespace ConsoleApp.Zoo
                 Console.WriteLine("Group: {0}", x.Group);
                 FormattedShow(x.Animal);
             });
-        } 
+        }
 
         public void DeadAnimalsByType()
         {
             animals.GroupBy(x => x.GetType().Name).Select(x => new
             {
                 Group = x.Key,
-                Count = x.Where(y=>y.State == AnimalStates.AnimalState.Dead).Count()
+                Count = x.Where(y => y.State == AnimalStates.AnimalState.Dead).Count()
             }).ToList().ForEach(x => Console.WriteLine("Group: {0} | Count: {1}", x.Group, x.Count));
-        } 
+        }
 
         public void BearsAndWolfsByHP()
         {
-            string bear = "Bear";
-            string wolf = "Wolf";
-
-            animals.Where(x => (x.GetType().Name == bear || x.GetType().Name == wolf) && x.HP > 3).ToList().ForEach(x => FormattedShow(x));
-        } 
+            animals.Where(x => (x.GetType() == typeof(AnimalConcrete.Bear) || x.GetType() == typeof(AnimalConcrete.Wolf) && x.HP > 3)).ToList().ForEach(x => FormattedShow(x));
+        }
 
         public void MaxAndMinHP()
         {
@@ -139,7 +136,7 @@ namespace ConsoleApp.Zoo
             };
 
             Console.WriteLine("Min HP: {0} | HP: {1} || Max HP: {2} | HP: {3}", res.Min.Name, res.Min.HP, res.Max.Name, res.Max.HP);
-        } 
+        }
 
         public void AvgHP()
         {
