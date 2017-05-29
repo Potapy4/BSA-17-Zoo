@@ -69,9 +69,7 @@ namespace ConsoleApp.Zoo
 
         public void SickTigers()
         {
-            string type = "Tiger";
-
-            animals.Where(x => x.GetType().Name == type && x.State == AnimalStates.AnimalState.Sick).ToList().ForEach(x => FormattedShow(x));
+            animals.OfType<AnimalConcrete.Tiger>().ToList().Where(x => x.State == AnimalStates.AnimalState.Sick).ToList().ForEach(x => FormattedShow(x));
         } 
 
         public void ElephantByName(string name)
